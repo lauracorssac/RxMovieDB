@@ -27,36 +27,40 @@ class HomeViewModel {
 //            .observeOn(MainScheduler.instance)
 //            .share()
         
-//        let result = searchText
-//            .filter { $0 != nil && !($0?.isEmpty ?? true) }
-//            .map { $0! }
-//            .flatMapLatest { text -> Observable<Event<[Movie]>> in
-//                return DataManager.shared.getMovies(with: text).materialize()
-//            }
-//            .debug("movie search result", trimOutput: false)
-//            .observeOn(MainScheduler.instance)
-//            .share()
-        
         let result = searchText
             .filter { $0 != nil && !($0?.isEmpty ?? true) }
             .map { $0! }
-            .flatMapLatest { text -> Observable<[Movie]> in
-                return DataManager.shared.getMovies(with: text)//.materialize()
+            .flatMapLatest { text -> Observable<Event<[Movie]>> in
+                return DataManager.shared.getMovies(with: text)
+                    .debug("data manager get movies", trimOutput: false)
+                    .materialize()
             }
             .debug("movie search result", trimOutput: false)
             .observeOn(MainScheduler.instance)
             .share()
         
-        data = result.map {
-            $0//.element ?? []
-        }
+//        let result = searchText
+//            .filter { $0 != nil && !($0?.isEmpty ?? true) }
+//            .map { $0! }
+//            .flatMapLatest { text -> Observable<[Movie]> in
+//                return DataManager.shared.getMovies(with: text)//.materialize()
+//            }
+//            .debug("movie search result", trimOutput: false)
+//            .observeOn(MainScheduler.instance)
+//            .share()
+        
+        data = result
+            .filter { $0.element != nil}
+            .map {
+                $0.element!
+            }
         
         error = result
-            .map { _ in return nil /*$0.error*/ }
+            .map { $0.error }
             .share()
         
         processing = Observable<Bool>
-            .merge( searchText.map { _ in true }, data.map { _ in false } )
+            .merge( searchText.map { _ in true }, data.map { _ in false }, error.map { _ in false} )
     }
     
 }

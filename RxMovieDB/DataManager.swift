@@ -12,6 +12,9 @@ import RxSwift
 struct CustomErrors: Error {
     
     static let genericError = NSError(domain: "Generic", code: 0)
+    static let noDataError = NSError(domain: "No data", code: 1)
+    static let noResultsError = NSError(domain: "No results", code: 2)
+    static let exceptionError = NSError(domain: "Exception", code: 3)
 }
 
 class DataManager {
@@ -45,7 +48,7 @@ class DataManager {
                 }
                 
                 guard let data = data else {
-                    observable.onError(CustomErrors.genericError)
+                    observable.onError(CustomErrors.noDataError)
                     return
                 }
                 
@@ -55,9 +58,9 @@ class DataManager {
                 do {
                     guard
                         let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                        let results = json["results"]
+                        let results = json["results"] as? [[String: Any]]
                     else {
-                        observable.onError(CustomErrors.genericError)
+                        observable.onError(CustomErrors.noResultsError)
                         return
                     }
                     
@@ -66,10 +69,11 @@ class DataManager {
                     let movies = try jsonDecoder.decode([Movie].self, from: newData)
                     
                     observable.onNext(movies)
+                    observable.onCompleted()
                     
                 } catch {
                     
-                    observable.onError(CustomErrors.genericError)
+                    observable.onError(CustomErrors.exceptionError)
                 }
             }
             task.resume()

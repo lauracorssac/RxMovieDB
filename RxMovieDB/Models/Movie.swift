@@ -11,9 +11,9 @@ import Foundation
 struct Movie: Decodable {
     
     let originalTitle: String
-    private let posterPath: String
+    private let posterPath: String?
     
     var imageURL: URL? {
-        return URL(string: self.posterPath)
+        return URL(string: self.posterPath ?? "")
     }
 }
