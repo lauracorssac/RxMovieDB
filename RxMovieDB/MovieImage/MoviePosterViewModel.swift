@@ -7,12 +7,16 @@
 //
 
 import Foundation
+import RxSwift
 
 class MoviePosterViewModel {
     
-    
+    let moviePosterURL: URL?
+    let placeHolderImage = UIImage(named: "sorry")
     
     init(movie: Movie) {
+        
+        moviePosterURL = movie.imageURL
         
     }
     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MoviePosterViewController: UIViewController {
 
@@ -26,6 +27,9 @@ class MoviePosterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.movieImageView.kf.setImage(with: self.viewModel.moviePosterURL,
+                                        placeholder: self.viewModel.placeHolderImage)
 
     }
 

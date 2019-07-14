@@ -14,6 +14,7 @@ struct Movie: Decodable {
     private let posterPath: String?
     
     var imageURL: URL? {
-        return URL(string: self.posterPath ?? "")
+        guard let imagePath = posterPath else { return nil }
+        return URL(string: "https://image.tmdb.org/t/p/w300\(imagePath)")
     }
 }

@@ -15,6 +15,7 @@ class HomeViewController: UIViewController {
     @IBOutlet private weak var moviesTableView: UITableView!
     @IBOutlet private weak var movieTextField: UITextField!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var emptyStateLabel: UILabel!
     
     private let disposeBag = DisposeBag()
     private let cellIdentifier = "movieCell"
@@ -32,6 +33,9 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.activityIndicator.isHidden = true
+        self.emptyStateLabel.isHidden = true
         
         self.moviesTableView.register(UINib(nibName: "\(MovieTableViewCell.self)", bundle: nil), forCellReuseIdentifier: cellIdentifier)
         
@@ -63,17 +67,13 @@ class HomeViewController: UIViewController {
             }.disposed(by: self.disposeBag)
         
         viewModel.error
-            .debug("view model error", trimOutput: false)
-            .map { $0 != nil }
-            .observeOn(MainScheduler.instance)
-            .bind(to: moviesTableView.rx.isHidden)
-            .disposed(by: self.disposeBag)
-        
-        viewModel.error
             .filter { $0 != nil }
             .map { $0! }
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] error in
+                
+                    self?.emptyStateLabel.isHidden = true
+                    self?.moviesTableView.isHidden = true
                 
                     let vc = UIAlertController(title: "Oops, deu erro!", message: "Tente novamente mais tarde", preferredStyle: .alert)
                 
@@ -93,6 +93,15 @@ class HomeViewController: UIViewController {
             .processing
             .map { !$0 }
             .bind(to: activityIndicator.rx.isHidden)
+            .disposed(by: self.disposeBag)
+        
+        viewModel.isEmptyState
+            .map { !$0 }
+            .bind(to: self.emptyStateLabel.rx.isHidden)
+            .disposed(by: self.disposeBag)
+        
+        viewModel.isEmptyState
+            .bind(to: self.moviesTableView.rx.isHidden)
             .disposed(by: self.disposeBag)
         
     }

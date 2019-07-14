@@ -15,6 +15,7 @@ class HomeViewModel {
     let error: Observable<Error?>
     let processing: Observable<Bool>
     let searchText = BehaviorSubject<String?>(value: "")
+    let isEmptyState: Observable<Bool>
     
     init() {
         
@@ -27,9 +28,13 @@ class HomeViewModel {
 //            .observeOn(MainScheduler.instance)
 //            .share()
         
-        let result = searchText
+        let filteresSearchText = searchText
             .filter { $0 != nil && !($0?.isEmpty ?? true) }
             .map { $0! }
+            .share()
+        
+        let result =
+            filteresSearchText
             .flatMapLatest { text -> Observable<Event<[Movie]>> in
                 return DataManager.shared.getMovies(with: text)
                     .debug("data manager get movies", trimOutput: false)
@@ -53,14 +58,16 @@ class HomeViewModel {
             .filter { $0.element != nil}
             .map {
                 $0.element!
-            }
+            }.share()
         
         error = result
             .map { $0.error }
             .share()
         
         processing = Observable<Bool>
-            .merge( searchText.map { _ in true }, data.map { _ in false }, error.map { _ in false} )
+            .merge( filteresSearchText.map { _ in true }, data.map { _ in false }, error.map { _ in false} )
+        
+        isEmptyState = data.map { $0.isEmpty }
     }
     
 }
