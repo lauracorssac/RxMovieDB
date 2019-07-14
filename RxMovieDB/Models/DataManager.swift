@@ -30,11 +30,11 @@ class DataManager {
     
     func getMovies(with title: String) -> Observable<[Movie]> {
         
-        return Observable<[Movie]>.create { observable in
+        return Observable<[Movie]>.create { observer in
             
             guard let url = DataManager.shared.getMoviesUrlSearchForMovieName(movieName: title) else {
                 
-                observable.onError(CustomErrors.genericError)
+                observer.onError(CustomErrors.genericError)
                 return Disposables.create()
             }
             
@@ -43,12 +43,12 @@ class DataManager {
             let task = URLSession.shared.dataTask(with: request) { data, _, opError in
                 
                 if let error = opError {
-                    observable.onError(error)
+                    observer.onError(error)
                     return
                 }
                 
                 guard let data = data else {
-                    observable.onError(CustomErrors.noDataError)
+                    observer.onError(CustomErrors.noDataError)
                     return
                 }
                 
@@ -60,7 +60,7 @@ class DataManager {
                         let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                         let results = json["results"] as? [[String: Any]]
                     else {
-                        observable.onError(CustomErrors.noResultsError)
+                        observer.onError(CustomErrors.noResultsError)
                         return
                     }
                     
@@ -68,12 +68,12 @@ class DataManager {
                     
                     let movies = try jsonDecoder.decode([Movie].self, from: newData)
                     
-                    observable.onNext(movies)
-                    observable.onCompleted()
+                    observer.onNext(movies)
+                    observer.onCompleted()
                     
                 } catch {
                     
-                    observable.onError(CustomErrors.exceptionError)
+                    observer.onError(CustomErrors.exceptionError)
                 }
             }
             task.resume()

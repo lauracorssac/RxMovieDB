@@ -28,8 +28,13 @@ class MoviePosterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.movieImageView.kf.setImage(with: self.viewModel.moviePosterURL,
-                                        placeholder: self.viewModel.placeHolderImage)
+        self.movieImageView.kf.setImage(with: self.viewModel.moviePosterURL) { [weak self] (image, _, _, _) in
+            
+            guard let self = self else { return }
+            if image == nil {
+                self.movieImageView.image = self.viewModel.placeHolderImage
+            }
+        }
 
     }
 

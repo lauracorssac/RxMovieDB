@@ -84,10 +84,6 @@
 				26AF0BBC22DA6C29005F667A /* Assets.xcassets */,
 				26AF0BBE22DA6C29005F667A /* LaunchScreen.storyboard */,
 				26AF0BC122DA6C29005F667A /* Info.plist */,
-				26AF0BC722DA6DF4005F667A /* HomeViewController.swift */,
-				26AF0BC822DA6DF4005F667A /* HomeViewController.xib */,
-				26AF0BCB22DA7047005F667A /* HomeViewModel.swift */,
-				26AF0BCD22DA73AF005F667A /* DataManager.swift */,
 			);
 			path = RxMovieDB;
 			sourceTree = "<group>";
@@ -95,6 +91,7 @@
 		26AF0BCF22DA785D005F667A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				26AF0BCD22DA73AF005F667A /* DataManager.swift */,
 				26AF0BD022DA7865005F667A /* Movie.swift */,
 			);
 			path = Models;
@@ -113,6 +110,9 @@
 		26AF0BD922DABC99005F667A /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				26AF0BCB22DA7047005F667A /* HomeViewModel.swift */,
+				26AF0BC822DA6DF4005F667A /* HomeViewController.xib */,
+				26AF0BC722DA6DF4005F667A /* HomeViewController.swift */,
 				26AF0BDA22DABCA0005F667A /* Cell */,
 			);
 			path = Home;

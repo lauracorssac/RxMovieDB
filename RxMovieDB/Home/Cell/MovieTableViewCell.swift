@@ -16,10 +16,10 @@ class MovieTableViewCell: UITableViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
     
     var disposeBag = DisposeBag()
-    private let buttonPressed = PublishSubject<Void>()
     
+    private let buttonPressed = PublishSubject<Void>()
     var publicButtonPressed: Observable<Void> {
-        return buttonPressed.asObserver()
+        return buttonPressed.asObservable()
     }
     
     override func prepareForReuse() {

@@ -49,17 +49,16 @@ class HomeViewController: UIViewController {
             .disposed(by: self.disposeBag)
         
         viewModel.data
-            .debug("view model data", trimOutput: false)
-            .bind(to: moviesTableView.rx.items(cellIdentifier: cellIdentifier, cellType: MovieTableViewCell.self)) { _, movie, cell in
+            .bind(to: moviesTableView.rx.items(cellIdentifier: cellIdentifier,
+                                               cellType: MovieTableViewCell.self)) { _, movie, cell in
                 
                 cell.configure(with: movie.originalTitle)
                 
                 cell.publicButtonPressed
                     .observeOn(MainScheduler.instance)
-                    .subscribe(onNext: { _ in
+                    .subscribe(onNext: { [weak self] _ in
                         
-                        let vc = MoviePosterViewController(viewModel: MoviePosterViewModel(movie: movie))
-                        self.navigationController?.pushViewController(vc, animated: true)
+                        self?.presentDescription(for: movie)
                         
                     }).disposed(by: cell.disposeBag) // cell disposeBag !!!
                 
@@ -74,12 +73,7 @@ class HomeViewController: UIViewController {
                 
                     self?.emptyStateLabel.isHidden = true
                     self?.moviesTableView.isHidden = true
-                
-                    let vc = UIAlertController(title: "Oops, deu erro!", message: "Tente novamente mais tarde", preferredStyle: .alert)
-                
-                    let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    vc.addAction(action)
-                    self?.present(vc, animated: true, completion: nil)
+                    self?.presentAlert()
             
             }).disposed(by: self.disposeBag)
         
@@ -104,6 +98,21 @@ class HomeViewController: UIViewController {
             .bind(to: self.moviesTableView.rx.isHidden)
             .disposed(by: self.disposeBag)
         
+    }
+    
+    private func presentAlert() {
+        
+        let vc = UIAlertController(title: "Oops, deu erro!", message: "Tente novamente mais tarde", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        vc.addAction(action)
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    private func presentDescription(for movie: Movie) {
+        
+        let vc = MoviePosterViewController(viewModel: MoviePosterViewModel(movie: movie))
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 
 
