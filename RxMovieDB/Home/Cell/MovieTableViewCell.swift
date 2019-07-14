@@ -7,18 +7,33 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class MovieTableViewCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    @IBOutlet private weak var posterButton: UIButton!
+    @IBOutlet private weak var titleLabel: UILabel!
+    
+    var disposeBag = DisposeBag()
+    private let buttonPressed = PublishSubject<Void>()
+    
+    var publicButtonPressed: Observable<Void> {
+        return buttonPressed.asObserver()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.disposeBag = DisposeBag()
+    }
+    
+    func configure(with movieTitle: String) {
+        
+        self.titleLabel.text = movieTitle
+        
+        self.posterButton.rx
+            .tap
+            .bind(to: self.buttonPressed)
+            .disposed(by: self.disposeBag)
+    }
 }

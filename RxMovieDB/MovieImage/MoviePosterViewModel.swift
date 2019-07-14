@@ -7,3 +7,13 @@
 //
 
 import Foundation
+
+class MoviePosterViewModel {
+    
+    
+    
+    init(movie: Movie) {
+        
+    }
+    
+}

@@ -1,21 +1,53 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="MovieTableViewCell" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="movieCell" rowHeight="112" id="KGk-i7-Jjw" customClass="MovieTableViewCell" customModule="RxMovieDB" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="112"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="111.5"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B00-hz-epq">
+                        <rect key="frame" x="15" y="15" width="230" height="81.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EBa-eJ-zCA">
+                        <rect key="frame" x="255" y="41" width="50" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="lhR-fP-uXF"/>
+                        </constraints>
+                        <state key="normal" title="Poster!"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="B00-hz-epq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="PTS-Mf-8y7"/>
+                    <constraint firstAttribute="trailing" secondItem="EBa-eJ-zCA" secondAttribute="trailing" constant="15" id="R6Q-tb-FPe"/>
+                    <constraint firstAttribute="bottom" secondItem="B00-hz-epq" secondAttribute="bottom" constant="15" id="UTf-mR-zjz"/>
+                    <constraint firstItem="EBa-eJ-zCA" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="eQg-gb-nqX"/>
+                    <constraint firstItem="EBa-eJ-zCA" firstAttribute="leading" secondItem="B00-hz-epq" secondAttribute="trailing" constant="10" id="l4H-Jg-5M0"/>
+                    <constraint firstItem="B00-hz-epq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="sav-Dt-hwB"/>
+                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="posterButton" destination="EBa-eJ-zCA" id="35D-62-gBq"/>
+                <outlet property="titleLabel" destination="B00-hz-epq" id="Xjv-Nw-dXc"/>
+            </connections>
+            <point key="canvasLocation" x="110" y="155"/>
         </tableViewCell>
     </objects>
 </document>
