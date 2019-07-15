@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-class HomeViewModel {
+class HomeViewModel1 {
     
     let data: Observable<[Movie]>
     let error: Observable<Error?>
@@ -18,32 +18,25 @@ class HomeViewModel {
     let isEmptyState: Observable<Bool>
     
     init() {
-
+        
         let filteredSearchText = searchText
             .filter { $0 != nil && !($0?.isEmpty ?? true) }
             .map { $0! }
             .share()
         
-        let result =
-            filteredSearchText
-            .flatMapLatest { text -> Observable<Event<[Movie]>> in
-                return DataManager.shared.getMovies(with: text)
-                    .debug("data manager get movies", trimOutput: false)
-                    .materialize()
+        let result = searchText
+            .filter { $0 != nil && !($0?.isEmpty ?? true) }
+            .map { $0! }
+            .flatMapLatest { text -> Observable<[Movie]> in
+                return DataManager.shared.getMovies(with: text).catchErrorJustReturn([])
             }
             .debug("movie search result", trimOutput: false)
             .observeOn(MainScheduler.instance)
             .share()
         
         data = result
-            .filter { $0.element != nil}
-            .map {
-                $0.element!
-            }.share()
         
-        error = result
-            .map { $0.error }
-            .share()
+        error = Observable.of(nil)
         
         processing = Observable<Bool>
             .merge( filteredSearchText.map { _ in true }, data.map { _ in false }, error.map { _ in false} )

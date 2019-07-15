@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		151E4E1E6AD48C54DDAD0FB0 /* Pods_RxMovieDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0D7B6328455D54C5773C316 /* Pods_RxMovieDB.framework */; };
+		2636F5A622DBFCCF00AB5D91 /* HomeViewModel0.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2636F5A522DBFCCF00AB5D91 /* HomeViewModel0.swift */; };
+		2636F5A822DBFE6700AB5D91 /* HomeViewModel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2636F5A722DBFE6700AB5D91 /* HomeViewModel1.swift */; };
 		26AF0BB622DA6C27005F667A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AF0BB522DA6C27005F667A /* AppDelegate.swift */; };
 		26AF0BBD22DA6C29005F667A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26AF0BBC22DA6C29005F667A /* Assets.xcassets */; };
 		26AF0BC022DA6C29005F667A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26AF0BBE22DA6C29005F667A /* LaunchScreen.storyboard */; };
@@ -24,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2636F5A522DBFCCF00AB5D91 /* HomeViewModel0.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel0.swift; sourceTree = "<group>"; };
+		2636F5A722DBFE6700AB5D91 /* HomeViewModel1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel1.swift; sourceTree = "<group>"; };
 		26AF0BB222DA6C27005F667A /* RxMovieDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxMovieDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26AF0BB522DA6C27005F667A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		26AF0BBC22DA6C29005F667A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -113,7 +117,9 @@
 				26AF0BCB22DA7047005F667A /* HomeViewModel.swift */,
 				26AF0BC822DA6DF4005F667A /* HomeViewController.xib */,
 				26AF0BC722DA6DF4005F667A /* HomeViewController.swift */,
+				2636F5A522DBFCCF00AB5D91 /* HomeViewModel0.swift */,
 				26AF0BDA22DABCA0005F667A /* Cell */,
+				2636F5A722DBFE6700AB5D91 /* HomeViewModel1.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -262,7 +268,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				26AF0BD522DA7919005F667A /* MoviePosterViewController.swift in Sources */,
+				2636F5A822DBFE6700AB5D91 /* HomeViewModel1.swift in Sources */,
 				26AF0BB622DA6C27005F667A /* AppDelegate.swift in Sources */,
+				2636F5A622DBFCCF00AB5D91 /* HomeViewModel0.swift in Sources */,
 				26AF0BCE22DA73AF005F667A /* DataManager.swift in Sources */,
 				26AF0BD822DA7934005F667A /* MoviePosterViewModel.swift in Sources */,
 				26AF0BCC22DA7047005F667A /* HomeViewModel.swift in Sources */,
