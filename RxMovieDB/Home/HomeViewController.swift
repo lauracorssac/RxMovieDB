@@ -39,12 +39,10 @@ class HomeViewController: UIViewController {
         
         self.moviesTableView.register(UINib(nibName: "\(MovieTableViewCell.self)", bundle: nil), forCellReuseIdentifier: cellIdentifier)
         
-        let searchObservable = movieTextField.rx.text
+        movieTextField.rx.text
             .debug("search observable", trimOutput: false)
             .throttle(0.5, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
-        
-        searchObservable
             .bind(to: self.viewModel.searchText)
             .disposed(by: self.disposeBag)
         
