@@ -9,6 +9,8 @@
 import Foundation
 import RxSwift
 
+// FINAL VIEWMODEL - DIFFERENTIATES EMPTY STATE FROM ERROR
+
 class HomeViewModel {
     
     let data: Observable<[Movie]>

@@ -9,6 +9,8 @@
 import Foundation
 import RxSwift
 
+// SECOND VIEW MODEL -  TREATS ERROR, BUT EMPTY STATE = ERROR
+
 class HomeViewModel1 {
     
     let data: Observable<[Movie]>

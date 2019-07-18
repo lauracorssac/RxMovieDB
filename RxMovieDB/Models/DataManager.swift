@@ -25,7 +25,7 @@ class DataManager {
     
     private func getMoviesUrlSearchForMovieName(movieName: String) -> URL? {
         let movieNameS = movieName.replacingOccurrences(of: " ", with: "%20")
-        return URL(string: "https://api.themoviedb.org/3/search/movie?api_key=f0e3c4fcec46612abd4acf735d09c4a6&query=" + (movieNameS) + "&sort_by=original_title.asc")
+        return URL(string: "https://api.themoviedb.org/3/search/movie?api_key=[INSERT YOUR MOVIE DB API KEY HERE]" + (movieNameS) + "&sort_by=original_title.asc")
     }
     
     func getMovies(with title: String) -> Observable<[Movie]> {

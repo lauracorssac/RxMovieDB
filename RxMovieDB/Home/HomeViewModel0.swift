@@ -9,6 +9,8 @@
 import Foundation
 import RxSwift
 
+// FIRST VIEW MODEL - DONT TREATS ERRORS
+
 class HomeViewModel0 {
     
     let data: Observable<[Movie]>
